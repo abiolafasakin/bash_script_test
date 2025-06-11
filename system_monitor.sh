@@ -13,26 +13,36 @@ send_alert() {
     #the command tput sgr0 is used to reset terminal attributes to their default settings. The sgr0 stands for "Set Graphics Rendition 0," which restores text to its default appearance by clearing color, boldness, underlining, or any other formatting applied.
 }
 
-# Monitor CPU usage
-cpu_usage=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}')
-cpu_usage=${cpu_usage%.*} # Convert to integer
-echo "Current CPU usage: $cpu_usage%"
+while true; do
+    # Monitor CPU usage
+    cpu_usage=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}')
+    cpu_usage=${cpu_usage%.*} # Convert to integer
+    echo "Current CPU usage: $cpu_usage%"
 
-if ((cpu_usage >= CPU_THRESHOLD)); then
-  send_alert "CPU" "$cpu_usage"
-fi
+    if ((cpu_usage >= CPU_THRESHOLD)); then
+    send_alert "CPU" "$cpu_usage"
+    fi
 
-# Monitor memory usage
-memory_usage=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
-memory_usage=${memory_usage%.*} # Convert to integer
-echo "Current Memory usage: $memory_usage%"
-if ((memory_usage >= MEMORY_THRESHOLD)); then
-  send_alert "Memory" "$memory_usage"
-fi
+    # Monitor memory usage
+    memory_usage=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
+    memory_usage=${memory_usage%.*} # Convert to integer
+    echo "Current Memory usage: $memory_usage%"
+    if ((memory_usage >= MEMORY_THRESHOLD)); then
+    send_alert "Memory" "$memory_usage"
+    fi
 
-# Monitor disk usage
-disk_usage=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
-echo "Current Disk usage: $disk_usage%"
-if ((disk_usage >= DISK_THRESHOLD)); then
-  send_alert "Disk" "$disk_usage"
-fi
+    # Monitor disk usage
+    disk_usage=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
+    echo "Current Disk usage: $disk_usage%"
+    if ((disk_usage >= DISK_THRESHOLD)); then
+    send_alert "Disk" "$disk_usage"
+    fi
+
+    # Display current stats
+    clear
+    echo "Resource Usage:"
+    echo "CPU: $cpu_usage%"
+    echo "Memory: $memory_usage%"
+    echo "Disk: $disk_usage%"
+    sleep 2
+done
