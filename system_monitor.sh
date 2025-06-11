@@ -29,3 +29,10 @@ echo "Current Memory usage: $memory_usage%"
 if ((memory_usage >= MEMORY_THRESHOLD)); then
   send_alert "Memory" "$memory_usage"
 fi
+
+# Monitor disk usage
+disk_usage=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
+echo "Current Disk usage: $disk_usage%"
+if ((disk_usage >= DISK_THRESHOLD)); then
+  send_alert "Disk" "$disk_usage"
+fi
