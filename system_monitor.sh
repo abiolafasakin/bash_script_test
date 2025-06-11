@@ -4,3 +4,20 @@
 CPU_THRESHOLD=80
 MEMORY_THRESHOLD=80
 DISK_THRESHOLD=80
+
+# Function to send an alert
+
+send_alert() {
+    echo "$(tput setaf 1)ALERT: $1 usage exceeded threshold! Current value: $2%$(tput sgr0)" 
+    #the command tput setaf 1 is used to change the foreground color of text in the terminal. The setaf parameter stands for "set ANSI foreground," and the number 1 corresponds to the color red.
+    #the command tput sgr0 is used to reset terminal attributes to their default settings. The sgr0 stands for "Set Graphics Rendition 0," which restores text to its default appearance by clearing color, boldness, underlining, or any other formatting applied.
+}
+
+# Monitor CPU usage
+cpu_usage=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}')
+cpu_usage=${cpu_usage%.*} # Convert to integer
+echo "Current CPU usage: $cpu_usage%"
+
+if ((cpu_usage >= CPU_THRESHOLD)); then
+  send_alert "CPU" "$cpu_usage"
+fi
