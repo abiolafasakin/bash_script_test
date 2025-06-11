@@ -21,13 +21,15 @@ echo "Current CPU usage: $cpu_usage%"
 if ((cpu_usage >= CPU_THRESHOLD)); then
   send_alert "CPU" "$cpu_usage"
 fi
-# # Monitor memory usage
-# memory_usage=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
-# memory_usage=${memory_usage%.*} # Convert to integer
-# echo "Current Memory usage: $memory_usage%"
-# if ((memory_usage >= MEMORY_THRESHOLD)); then
-#   send_alert "Memory" "$memory_usage"
-# fi
+
+# Monitor memory usage
+memory_usage=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
+memory_usage=${memory_usage%.*} # Convert to integer
+echo "Current Memory usage: $memory_usage%"
+if ((memory_usage >= MEMORY_THRESHOLD)); then
+  send_alert "Memory" "$memory_usage"
+fi
+
 # # Monitor disk usage
 # disk_usage=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
 # echo "Current Disk usage: $disk_usage%"
