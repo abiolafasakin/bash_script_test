@@ -29,29 +29,3 @@ echo "Current Memory usage: $memory_usage%"
 if ((memory_usage >= MEMORY_THRESHOLD)); then
   send_alert "Memory" "$memory_usage"
 fi
-
-# # Monitor disk usage
-# disk_usage=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
-# echo "Current Disk usage: $disk_usage%"
-# if ((disk_usage >= DISK_THRESHOLD)); then
-#   send_alert "Disk" "$disk_usage"
-# fi
-# # Log the current usage to a file
-# log_file="system_monitor.log"
-# echo "$(date): CPU: $cpu_usage%, Memory: $memory_usage%, Disk: $disk_usage%" >> "$log_file"
-# # Display the log file content
-# echo "System usage logged to $log_file"
-# # Display the log file content
-# echo "Log file content:"
-# cat "$log_file"
-# # End of script
-# # This script monitors system resources and sends alerts if usage exceeds defined thresholds.
-# # It logs the current usage to a file and displays the log content.
-# # Usage: Save this script as system_monitor.sh, make it executable with chmod +x system_monitor.sh, and run it with ./system_monitor.sh
-# # End of script
-# # Usage: Save this script as system_monitor.sh, make it executable with chmod +x system_monitor.sh, and run it with ./system_monitor.sh
-# # End of script
-# # Usage: Save this script as system_monitor.sh, make it executable with chmod +x system_monitor.sh, and run it with ./system_monitor.sh
-# # Usage: Save this script as system_monitor.sh, make it executable with chmod +x system_monitor.sh, and run it with ./system_monitor.sh
-# # Usage: Save this script as system_monitor.sh, make it executable with chmod +x system_monitor.sh, and run it with ./system_monitor.sh
-# # Usage: Save this script as system_monitor.sh, make it executable with chmod +x system_monitor.sh, and run it with ./system_monitor.sh 
