@@ -1,4 +1,4 @@
-Build a Linux System Monitor Using Bash
+Linux System Monitor Using Bash
 
 Introduction
 
