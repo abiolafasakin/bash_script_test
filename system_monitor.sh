@@ -48,7 +48,13 @@ while true; do
 
     #Adding a logging feature to the system monitor script
     log_usage() {
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - CPU: $cpu_usage%, Memory: $memory_usage%, Disk: $disk_usage%" >> resource_usage.log
+        blue=$(tput setaf 4) # Set text color to blue
+        green=$(tput setaf 2) # Set text color to green
+        reset=$(tput sgr0) # Reset text color
+        echo "${green}$(date '+%Y-%m-%d %H:%M:%S')${reset} CPU: ${blue}$cpu_usage${reset}%, Memory: ${blue}$memory_usage${reset}%, Disk: ${blue}$disk_usage${reset}%" >> resource_usage.log
+        # Log the resource usage to a file with timestamp
+        # The command tput setaf 4 is used to change the foreground color of text in the terminal to blue.
+        # The command tput sgr0 is used to reset terminal attributes to their default settings.
     }
     # Call the log_usage function after displaying the stats
     log_usage
