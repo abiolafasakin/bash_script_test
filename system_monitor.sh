@@ -45,19 +45,20 @@ while true; do
     echo "Memory: $memory_usage%"
     echo "Disk: $disk_usage%"
     sleep 2
+
+    #Adding a logging feature to the system monitor script
+    log_usage() {
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - CPU: $cpu_usage%, Memory: $memory_usage%, Disk: $disk_usage%" >> resource_usage.log
+    }
+    # Call the log_usage function after displaying the stats
+    log_usage
 done
 
 # Note: This script runs indefinitely. To stop it, you can use Ctrl+C in the terminal.
 # Ensure the script is executable
-chmod +x system_monitor.sh
 # To run the script, use the command: ./system_monitor.sh
 # Note: This script requires root privileges to access certain system information.
 # You can run it with sudo: sudo ./system_monitor.sh
 # Usage: ./system_monitor.sh
 
-#Adding a logging feature to the system monitor script
-log_usage() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - CPU: $cpu_usage%, Memory: $memory_usage%, Disk: $disk_usage%" >> resource_usage.log
-}
-# Call the log_usage function after displaying the stats
-log_usage
+
